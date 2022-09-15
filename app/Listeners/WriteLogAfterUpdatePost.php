@@ -30,8 +30,6 @@ class WriteLogAfterUpdatePost
         //
         $fileName ='Update_post_' .$event->post->id .'.txt' ;
         $data = 'Newly Updated post: ' .$event->post->name . ' with ID: ' .$event->post->id;
-//        File::put(public_path('/txt' .$fileName), $data);
-//        Storage::put(public_path('/txt' .$fileName), $data);
         Storage::disk('local')->put($fileName, $data);
 
         return true;

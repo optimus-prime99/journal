@@ -48,7 +48,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = $this->post->store($request->all());
-        $id = $this->post->store($request->all())->id;
+        $id = $post->id;
         event(new NewPost($post));
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
@@ -89,7 +89,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = $this->post->update($request->all(), $id);
-//        event(new UpdatePost($post));
+        event(new UpdatePost($post));
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 

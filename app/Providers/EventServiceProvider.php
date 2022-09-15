@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewPost' => [
             'App\Listeners\WriteLogAfterNewPost',
         ],
+        'App\Events\UpdatePost' => [
+            'App\Listeners\WriteLogAfterUpdatePost',
+        ],
     ];
 
     /**
