@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\UpdatePost;
+use App\Events\DeletePost;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Storage;
 
-class WriteLogAfterUpdatePost
+class WriteLogAfterDeletePost
 {
     /**
      * Create the event listener.
@@ -16,19 +16,20 @@ class WriteLogAfterUpdatePost
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
      * Handle the event.
      *
-     * @param \App\Events\UpdatePost $event
+     * @param \App\Events\DeletePost $event
      * @return void
      */
-    public function handle(UpdatePost $event)
+    public function handle(DeletePost $event)
     {
-        $fileName = 'Update_post_' . $event->post->id . '.txt';
-        $data = 'Newly Updated post: ' . $event->post->name . ' with ID: ' . $event->post->id;
+        //
+        $fileName = 'Delete_post_' . $event->id . '.txt';
+        $data = 'Newly deleted post ' . 'with ID: ' . $event->id;
         Storage::disk('local')->put($fileName, $data);
 
         return true;

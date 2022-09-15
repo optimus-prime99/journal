@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeletePost;
 use App\Events\NewPost;
 use App\Events\UpdatePost;
 use App\Interfaces\PostRepositoryInterface;
@@ -75,7 +76,6 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = $this->post->edit($id);
-        event(new UpdatePost($post));
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -103,6 +103,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $this->post->delete($id);
+        event(new DeletePost($id));
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
 }

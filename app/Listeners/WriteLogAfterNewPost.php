@@ -23,7 +23,7 @@ class WriteLogAfterNewPost
     /**
      * Handle the event.
      *
-     * @param  \App\Events\NewPost  $event
+     * @param \App\Events\NewPost $event
      * @return void
      */
     public function handle(NewPost $event)
@@ -31,14 +31,11 @@ class WriteLogAfterNewPost
         //
         sleep(2);
 
-        $fileName ='Create_post_' .$event->post->id .'.txt' ;
-        $data = 'Newly created post: ' .$event->post->name . ' with ID: ' .$event->post->id;
-//        File::put(public_path('/txt' .$fileName), $data);
-//        Storage::put(public_path('/txt' .$fileName), $data);
+        $fileName = 'Create_post_' . $event->post->id . '.txt';
+        $data = 'Newly created post: ' . $event->post->name . ' with ID: ' . $event->post->id;
         Storage::disk('local')->put($fileName, $data);
 
         return true;
-
 
 
     }
