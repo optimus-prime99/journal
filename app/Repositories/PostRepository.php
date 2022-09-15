@@ -20,6 +20,7 @@ class PostRepository implements PostRepositoryInterface
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
+
     }
 
     public function show(int $id)

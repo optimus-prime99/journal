@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewPost;
+use App\Events\UpdatePost;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -45,7 +47,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->post->store($request->all());
+        $post = $this->post->store($request->all());
+        $id = $this->post->store($request->all())->id;
+        event(new NewPost($post));
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 
@@ -71,6 +75,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = $this->post->edit($id);
+        event(new UpdatePost($post));
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -83,7 +88,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->post->update($request->all(), $id);
+        $post = $this->post->update($request->all(), $id);
+//        event(new UpdatePost($post));
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 
