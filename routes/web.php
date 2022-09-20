@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,26 +24,17 @@ Route::get('/', function () {
 Route::resource('posts', PostController::class);
 
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Auth::routes();
+//
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+//Route::get("/admin", function () {
+//    return view('admin.index');
+//});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', [App\Http\Controllers\AdminsController::class, 'index'])->name('admin.index');
