@@ -60,11 +60,19 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+//    public function show($id)
+//    {
+//        //
+//        $post = $this->post->show($id);
+//        return view('posts.show', ['post' => $post]);
+//    }
+
+    public function show()
     {
         //
-        $post = $this->post->show($id);
-        return view('posts.show', ['post' => $post]);
+//        $post = $this->post->show($id);
+//        return view('posts.show', ['post' => $post]);
+        return view('blog-post');
     }
 
     /**
