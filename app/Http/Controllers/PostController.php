@@ -37,7 +37,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+//        return view('posts.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -46,12 +47,23 @@ class PostController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        $post = $this->post->store($request->all());
-        $id = $post->id;
-        event(new NewPost($post));
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+//    public function store(Request $request)
+//    {
+//        $post = $this->post->store($request->all());
+//        $id = $post->id;
+//        event(new NewPost($post));
+//        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+//    }
+
+    public function store(){
+         $inputs = request()->validate([
+            'name' => 'required|min:8|max:255',
+            'description' => 'required'
+        ]);
+
+         auth()->user()->posts()->create($inputs);
+
+         return back();
     }
 
     /**
@@ -67,12 +79,13 @@ class PostController extends Controller
 //        return view('posts.show', ['post' => $post]);
 //    }
 
-    public function show()
+    public function show(Post $post)
     {
         //
 //        $post = $this->post->show($id);
-//        return view('posts.show', ['post' => $post]);
-        return view('blog-post');
+//        return view('posts.show', ['post' => $post])
+
+        return view('blog-post', ['post' => $post]);
     }
 
     /**
