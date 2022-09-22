@@ -24,11 +24,18 @@ class PostController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
 
-    public function index()
-    {
-        $posts = $this->post->all();
-        return view('posts.index', ['posts' => $posts], compact('posts'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }
+//    public function index()
+//    {
+//        $posts = $this->post->all();
+//        return view('posts.index', ['posts' => $posts], compact('posts'))->with('i', (request()->input('page', 1) - 1) * 5);
+//    }
+
+        public function index()
+        {
+            $posts = Post::all();
+//            return view('admin.posts.index');
+            return view('admin.posts.index', ['posts'=>$posts]);
+        }
 
     /**
      * Show the form for creating a new resource.
