@@ -4,7 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
-
+//use mysql_xdevapi\Session;
+use Illuminate\Support\Facades\Session;
 class PostRepository implements PostRepositoryInterface
 {
     public function all()
@@ -16,10 +17,19 @@ class PostRepository implements PostRepositoryInterface
     public function store(array $data)
     {
         // TODO: Implement store() method.
-        return Post::create([
+
+//        return Post::create([
+//            'name' => $data['name'],
+//            'description' => $data['description'],
+//        ]);
+        $post = Post::create([
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
+
+        session()->flash('post-created-message', 'Post with name '.$data['name'].' was created');
+
+        return $post;
 
     }
 
@@ -54,7 +64,7 @@ class PostRepository implements PostRepositoryInterface
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
-
+        Session::flash('post-updated-message', 'Post with name '.$post['name'].' was updated');
         return $post;
     }
 
@@ -66,5 +76,7 @@ class PostRepository implements PostRepositoryInterface
             abort(404);
         }
         $post->delete();
+        Session::flash('message', 'Post was deleted');
+        return back();
     }
 }

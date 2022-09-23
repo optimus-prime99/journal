@@ -2,7 +2,13 @@
     @section('content')
 
         <h1>All Posts</h1>
-
+        @if(session('message'))
+            <div class="alert alert-danger"> {{session('message')}} </div>
+        @elseif(session('post-created-message'))
+            <div class="alert alert-success"> {{session('post-created-message')}} </div>
+        @elseif(session('post-updated-message'))
+            <div class="alert alert-success"> {{session('post-updated-message')}} </div>
+        @endif
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -13,26 +19,52 @@
                         <thead>
                         <tr>
                             <th>Id</th>
+                            <th>Owner</th>
                             <th>Name</th>
+                            <th>Description</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>Show</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
                             <th>Id</th>
+                            <th>Owner</th>
                             <th>Name</th>
+                            <th>Description</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>Show</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                         </tfoot>
                         <tbody>
                         @foreach($posts as $post)
                             <tr>
                                 <td>{{$post->id}}</td>
+                                <td>{{$post->user->name}}</td>
                                 <td>{{$post->name}}</td>
+                                <td>{{$post->description}}</td>
                                 <td>{{$post->created_at->diffForHumans()}}</td>
                                 <td>{{$post->updated_at->diffForHumans()}}</td>
+                                <td>
+                                        <a class="btn btn-info" href="{{ route('posts.show',$post->id) }}">Show</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>
+                                </td>
+
+                                <td>
+                                    <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

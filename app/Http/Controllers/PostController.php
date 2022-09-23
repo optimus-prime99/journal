@@ -70,7 +70,7 @@ class PostController extends Controller
 
          auth()->user()->posts()->create($inputs);
 
-         return back();
+        return redirect()->route('post.index');
     }
 
     /**
@@ -101,11 +101,19 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $post = $this->post->edit($id);
-        return view('posts.edit', ['post' => $post]);
+//    public function edit($id)
+//    {
+//        $post = $this->post->edit($id);
+//        return view('posts.edit', ['post' => $post]);
+//    }
+    public function edit(Post $post){
+
+//        $this->authorize('view', $post);
+
+
+        return view('admin.posts.edit', ['post' => $post]);
     }
+
 
     /**
      * Update the specified resource in storage.
