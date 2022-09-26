@@ -32,8 +32,10 @@ class PostController extends Controller
 
         public function index()
         {
-            $posts = Post::all();
+//            $posts = Post::all();
 //            return view('admin.posts.index');
+            $posts = auth()->user()->posts;
+
             return view('admin.posts.index', ['posts'=>$posts]);
         }
 
@@ -69,6 +71,8 @@ class PostController extends Controller
         ]);
 
          auth()->user()->posts()->create($inputs);
+
+        session()->flash('post-created-message', 'Post with name '.$inputs['name'].' was created');
 
         return redirect()->route('post.index');
     }
@@ -139,9 +143,11 @@ class PostController extends Controller
             $post->name = $inputs['name'];
             $post->description = $inputs['description'];
 
-            auth()->user()->posts()->save($post);
+            $post->save();
 
-            return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+            session()->flash('post-updated-message', 'Post with name '.$inputs['name'].' was updated');
+
+            return redirect()->route('post.index');
         }
 
     /**
