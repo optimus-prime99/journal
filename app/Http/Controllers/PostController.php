@@ -122,12 +122,27 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
-    {
-        $post = $this->post->update($request->all(), $id);
-        event(new UpdatePost($post));
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
-    }
+//    public function update(Request $request, $id)
+//    {
+//        $post = $this->post->update($request->all(), $id);
+//        event(new UpdatePost($post));
+//        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+//    }
+
+        public function update(Post $post)
+        {
+            $inputs = request()->validate([
+                'name' => 'required|min:8|max:255',
+                'description' => 'required'
+            ]);
+
+            $post->name = $inputs['name'];
+            $post->description = $inputs['description'];
+
+            auth()->user()->posts()->save($post);
+
+            return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+        }
 
     /**
      * Remove the specified resource from storage.

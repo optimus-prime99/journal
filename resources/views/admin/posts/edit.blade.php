@@ -2,7 +2,8 @@
     @section('content')
 
         <h1>Edit post</h1>
-        <form method="post" action="{{route('posts.edit',$post->id)}}" enctype="multipart/form-data">
+{{--        <form method="post" action="{{route('posts.edit',$post->id)}}" enctype="multipart/form-data">--}}
+        <form method="post" action="{{route('posts.update',$post->id)}}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="form-group">
