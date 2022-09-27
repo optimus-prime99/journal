@@ -16,6 +16,6 @@ class Post extends Model
     }
 
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'closed_at'
     ];
 }

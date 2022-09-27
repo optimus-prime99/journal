@@ -67,7 +67,8 @@ class PostController extends Controller
     public function store(){
          $inputs = request()->validate([
             'name' => 'required|min:8|max:255',
-            'description' => 'required'
+            'description' => 'required',
+             'closed_at' => 'required'
         ]);
 
          auth()->user()->posts()->create($inputs);
