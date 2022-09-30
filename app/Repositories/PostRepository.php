@@ -108,7 +108,7 @@ class PostRepository implements PostRepositoryInterface
 //        $inputs = request()->validate($post);
 //        auth()->user()->posts()->create($inputs);
 //
-//        session()->flash('post-created-message', 'Post with name '.$data['name'].' was created');
+//            session()->flash('post-created-message', 'Post with name '.$data['name'].' was created');
 
         return $post;
 
