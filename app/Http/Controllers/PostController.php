@@ -64,17 +64,23 @@ class PostController extends Controller
 //        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
 //    }
 
-    public function store(){
-         $inputs = request()->validate([
-            'name' => 'required|min:8|max:255',
-            'description' => 'required',
-             'closed_at' => 'required'
-        ]);
-
-         auth()->user()->posts()->create($inputs);
+    public function store(Request $request){
+//         $inputs = request()->validate([
+//            'name' => 'required|min:8|max:255',
+//            'description' => 'required',
+//             'closed_at' => 'required'
+//        ]);
+//
+//         auth()->user()->posts()->create($inputs);
+//
+//        session()->flash('post-created-message', 'Post with name '.$inputs['name'].' was created');
+//        $post = $this->post->store($request->all());
+//        $id = $post->id;
+        $inputs = request()->validate($request);
+        auth()->user()->posts()->create($inputs);
 
         session()->flash('post-created-message', 'Post with name '.$inputs['name'].' was created');
-
+        event(new NewPost($request));
         return redirect()->route('post.index');
     }
 
@@ -84,21 +90,22 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-//    public function show($id)
-//    {
-//        //
-//        $post = $this->post->show($id);
-//        return view('posts.show', ['post' => $post]);
-//    }
-
-    public function show(Post $post)
+    public function show($id)
     {
         //
-//        $post = $this->post->show($id);
-//        return view('posts.show', ['post' => $post])
-
+        $post = $this->post->show($id);
+//        return view('posts.show', ['post' => $post]);
         return view('blog-post', ['post' => $post]);
     }
+
+//    public function show(Post $post)
+//    {
+//        //
+////        $post = $this->post->show($id);
+////        return view('posts.show', ['post' => $post])
+//
+//        return view('blog-post', ['post' => $post]);
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -111,11 +118,11 @@ class PostController extends Controller
 //        $post = $this->post->edit($id);
 //        return view('posts.edit', ['post' => $post]);
 //    }
-    public function edit(Post $post){
+    public function edit($id){
 
 //        $this->authorize('view', $post);
 
-
+        $post = $this->post->edit($id);
         return view('admin.posts.edit', ['post' => $post]);
     }
 
@@ -127,29 +134,29 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\RedirectResponse
      */
-//    public function update(Request $request, $id)
-//    {
-//        $post = $this->post->update($request->all(), $id);
-//        event(new UpdatePost($post));
-//        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
-//    }
+    public function update(Request $request, $id)
+    {
+        $post = $this->post->update($request->all(), $id);
+        event(new UpdatePost($post));
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+    }
 
-        public function update(Post $post)
-        {
-            $inputs = request()->validate([
-                'name' => 'required|min:8|max:255',
-                'description' => 'required'
-            ]);
-
-            $post->name = $inputs['name'];
-            $post->description = $inputs['description'];
-
-            $post->save();
-
-            session()->flash('post-updated-message', 'Post with name '.$inputs['name'].' was updated');
-
-            return redirect()->route('post.index');
-        }
+//        public function update(Post $post)
+//        {
+//            $inputs = request()->validate([
+//                'name' => 'required|min:8|max:255',
+//                'description' => 'required'
+//            ]);
+//
+//            $post->name = $inputs['name'];
+//            $post->description = $inputs['description'];
+//
+//            $post->save();
+//
+//            session()->flash('post-updated-message', 'Post with name '.$inputs['name'].' was updated');
+//
+//            return redirect()->route('post.index');
+//        }
 
     /**
      * Remove the specified resource from storage.
