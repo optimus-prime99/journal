@@ -8,6 +8,7 @@ use App\Events\UpdatePost;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -30,14 +31,14 @@ class PostController extends Controller
 //        return view('posts.index', ['posts' => $posts], compact('posts'))->with('i', (request()->input('page', 1) - 1) * 5);
 //    }
 
-        public function index()
-        {
+    public function index()
+    {
 //            $posts = Post::all();
 //            return view('admin.posts.index');
-            $posts = auth()->user()->posts;
+        $posts = auth()->user()->posts()->get();
 
-            return view('admin.posts.index', ['posts'=>$posts]);
-        }
+        return view('admin.posts.index', ['posts' => $posts]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -64,23 +65,29 @@ class PostController extends Controller
 //        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
 //    }
 
-    public function store(Request $request){
-//         $inputs = request()->validate([
-//            'name' => 'required|min:8|max:255',
-//            'description' => 'required',
-//             'closed_at' => 'required'
-//        ]);
-//
-//         auth()->user()->posts()->create($inputs);
-//
-//        session()->flash('post-created-message', 'Post with name '.$inputs['name'].' was created');
-//        $post = $this->post->store($request->all());
-//        $id = $post->id;
-        $inputs = request()->validate($request);
-        auth()->user()->posts()->create($inputs);
+    public function store(Request $request)
+    {
 
-        session()->flash('post-created-message', 'Post with name '.$inputs['name'].' was created');
-        event(new NewPost($request));
+//        $inputs = request()->validate([
+//            $request['name'] => 'required|min:4|max:255',
+//            $request['description'] => 'required',
+//            $request['closed_at'] => 'required'
+//        ]);
+
+        $inputs = Validator::make($request->all(), [
+            $request['name'] => 'required|min:4|max:255',
+            $request['description'] => 'required',
+            $request['closed_at'] => 'required'
+        ]);
+//        dd($inputs->data);
+        dd($request['name']);
+        if($inputs) {
+            $post = auth()->user()->posts()->create(['name' => $request->get('name'), 'description' => $request->get('description'), 'closed_at' => $request->get('closed_at')]);
+
+
+        session()->flash('post-created-message', 'Post with name ' . $request->get('name') . ' was created');
+        event(new NewPost($post));
+        }
         return redirect()->route('post.index');
     }
 
@@ -94,7 +101,6 @@ class PostController extends Controller
     {
         //
         $post = $this->post->show($id);
-//        return view('posts.show', ['post' => $post]);
         return view('blog-post', ['post' => $post]);
     }
 
@@ -118,7 +124,8 @@ class PostController extends Controller
 //        $post = $this->post->edit($id);
 //        return view('posts.edit', ['post' => $post]);
 //    }
-    public function edit($id){
+    public function edit($id)
+    {
 
 //        $this->authorize('view', $post);
 

@@ -12,13 +12,6 @@
                        aria-describedby=""
                        placeholder="Enter name"  required>
             </div>
-{{--            <div class="form-group">--}}
-{{--                <label for="file">File</label>--}}
-{{--                <input type="file"--}}
-{{--                       name="post_image"--}}
-{{--                       class="form-control-file"--}}
-{{--                       id="post_image">--}}
-{{--            </div>--}}
             <div class="form-group">
                 <label for="description">Description</label>
                     <textarea name="description"
@@ -42,8 +35,8 @@
     @endsection
 
     @section('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+            <script src="{{asset('https://cdn.jsdelivr.net/npm/flatpickr')}}"></script>
+            <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css')}}">
             <script>
                 flatpickr('#closed_at', {
                     enableTime: true

@@ -31,6 +31,10 @@
                           cols="30"
                           rows="10">{{$post->description}}</textarea>
             </div>
+            <div class="form-group">
+                <label for="closed_at">Close at</label>
+                <input style="width: 180px" type="text" class="form-control" name="closed_at" id="closed_at" required>{{$post->closed_at}}
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 

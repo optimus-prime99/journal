@@ -24,6 +24,7 @@
                             <th>Description</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>Closed At</th>
                             <th>Show</th>
                             <th>Update</th>
                             <th>Delete</th>
@@ -37,6 +38,7 @@
                             <th>Description</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>Closed At</th>
                             <th>Show</th>
                             <th>Update</th>
                             <th>Delete</th>
@@ -51,6 +53,7 @@
                                 <td>{{$post->description}}</td>
                                 <td>{{$post->created_at->diffForHumans()}}</td>
                                 <td>{{$post->updated_at->diffForHumans()}}</td>
+                                <td>{{$post->closed_at}}</td>
                                 <td>
                                         <a class="btn btn-info" href="{{ route('posts.show',$post->id) }}">Show</a>
                                 </td>
