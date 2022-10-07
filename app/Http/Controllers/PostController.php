@@ -80,7 +80,7 @@ class PostController extends Controller
             $request['closed_at'] => 'required'
         ]);
 //        dd($inputs->data);
-        dd($request['name']);
+//        dd($request['name']);
         if($inputs) {
             $post = auth()->user()->posts()->create(['name' => $request->get('name'), 'description' => $request->get('description'), 'closed_at' => $request->get('closed_at')]);
 
@@ -130,6 +130,7 @@ class PostController extends Controller
 //        $this->authorize('view', $post);
 
         $post = $this->post->edit($id);
+        event(new UpdatePost($post));
         return view('admin.posts.edit', ['post' => $post]);
     }
 
@@ -143,8 +144,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $post = $this->post->update($request->all(), $id);
-        event(new UpdatePost($post));
+//        dd($post);
+//        event(new UpdatePost($post));
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 
