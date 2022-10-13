@@ -386,7 +386,9 @@
 <script src="{{asset('js/sb-admin-2.js')}}"></script>
 
 
-@yield('scripts')
+@yield('scripts1')
+@yield('scripts2')
+@yield('scripts3')
 
 </body>
 

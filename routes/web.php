@@ -49,4 +49,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/posts/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
 //    Route::patch('/admin/posts/{post}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
     Route::put('/admin/posts/{post}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
+    Route::post('/admin/posts/{post}/delete', [App\Http\Controllers\PostController::class, 'destroy']);
 });

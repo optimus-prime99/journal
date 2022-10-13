@@ -77,13 +77,14 @@ class PostController extends Controller
         $inputs = Validator::make($request->all(), [
             $request['name'] => 'required|min:4|max:255',
             $request['description'] => 'required',
+            $request['closed_at'] => 'required',
             $request['closed_at'] => 'required'
         ]);
 //        dd($inputs->data);
 //        dd($request['name']);
         if($inputs) {
-            $post = auth()->user()->posts()->create(['name' => $request->get('name'), 'description' => $request->get('description'), 'closed_at' => $request->get('closed_at')]);
-
+            $post = auth()->user()->posts()->create(['name' => $request->get('name'), 'description' => $request->get('description'), 'opened_at' => $request->get('opened_at'), 'closed_at' => $request->get('closed_at')]);
+//            dd($post);
 
         session()->flash('post-created-message', 'Post with name ' . $request->get('name') . ' was created');
         event(new NewPost($post));
