@@ -1,4 +1,4 @@
-<x-admin-master>
+<x-admin-active-create-post-master>
     @section('content')
 
         <h1>Create</h1>
@@ -71,4 +71,4 @@
             })
         </script>
         @endsection
-</x-admin-master>
+</x-admin-active-create-post-master>

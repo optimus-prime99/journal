@@ -1,4 +1,4 @@
-<x-admin-master>
+<x-admin-active-view-post-master>
     @section('content')
 
 
@@ -142,4 +142,4 @@
 
         @endsection
 
-</x-admin-master>
+</x-admin-active-view-post-master>
