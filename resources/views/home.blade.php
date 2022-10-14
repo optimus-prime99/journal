@@ -35,7 +35,7 @@
     @foreach($posts as $post)
 {{--            <h2 class="card-title">Close date: {{$post->closed_at}}</h2>--}}
 {{--            <h2 class="card-title">Current date: {{Carbon\Carbon::now()->toDateTimeString()}}</h2>--}}
-        @if($post->closed_at > Carbon\Carbon::now()->toDateTimeString())
+        @if($post->closed_at > Carbon\Carbon::now()->toDateTimeString() && Carbon\Carbon::now()->toDateTimeString() >= $post->opened_at)
         <div class="card mb-4">
 {{--            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">--}}
             <div class="card-body">

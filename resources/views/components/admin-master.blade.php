@@ -389,6 +389,7 @@
 @yield('scripts1')
 @yield('scripts2')
 @yield('scripts3')
+@yield('submitButton')
 
 </body>
 

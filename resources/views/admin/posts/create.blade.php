@@ -2,7 +2,7 @@
     @section('content')
 
         <h1>Create</h1>
-        <form method="post" action="{{route('post.store')}}" enctype="multipart/form-data">
+        <form id="submitPostForm"  method="post" action="{{route('post.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>
@@ -32,7 +32,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
         </form>
 
 
@@ -62,5 +62,13 @@
 
     @section('css')
             /*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">*/
+        @endsection
+    @section('submitButton')
+        <script>
+            $("#btnSubmit").click(function (e) {
+                $("#submitPostForm").submit();
+                $("#btnSubmit").attr("disabled", "disabled");
+            })
+        </script>
         @endsection
 </x-admin-master>
