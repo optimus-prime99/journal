@@ -10,6 +10,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class PostController extends Controller
 {
     public $post;
@@ -73,15 +74,38 @@ class PostController extends Controller
 //            $request['description'] => 'required',
 //            $request['closed_at'] => 'required'
 //        ]);
+//        dd($request);
 
-        $inputs = Validator::make($request->all(), [
-            $request['name'] => 'required|min:4|max:255',
-            $request['description'] => 'required',
-            $request['closed_at'] => 'required',
-            $request['closed_at'] => 'required'
-        ]);
+//        $inputs = Validator::make($request->all(), [
+//            $request['name'] => 'required|min:4|max:255',
+//            $request['description'] => 'required',
+//            $request['closed_at'] => 'required',
+//            $request['closed_at'] => 'required'
+//        ]);
+//        $request->validate([
+//            $request['name'] => 'required|min:4|max:255',
+//            $request['description'] => 'required',
+//            $request['closed_at'] => 'required',
+//            $request['closed_at'] => 'required'
+//        ]);
+//        $inputs = $request->all();
+//        dd($inputs);
 //        dd($inputs->data);
 //        dd($request['name']);
+        $inputs = request()->validate([
+            'name' => 'required|min:8|max:255',
+            'description' => 'required',
+            'opened_at' => 'required',
+            'closed_at' => 'required'
+        ], [
+            'name.required' => 'Name is required',
+            'name.min' => 'Name must be longer than 8 characters',
+            'name.max' => 'Name must be shorter than 255 characters',
+            'description.required' => 'Description is required',
+            'opened_at.required' => 'Open at is required',
+            'closed_at.required' => 'Close at is required'
+
+        ]);
         if($inputs) {
             $post = auth()->user()->posts()->create(['name' => $request->get('name'), 'description' => $request->get('description'), 'opened_at' => $request->get('opened_at'), 'closed_at' => $request->get('closed_at')]);
 //            dd($post);

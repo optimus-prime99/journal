@@ -11,6 +11,9 @@
                        class="form-control" id="name"
                        aria-describedby=""
                        placeholder="Enter name"  required>
+                @if ($errors->has('name'))
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
@@ -20,15 +23,24 @@
                               placeholder="Enter description"
                               cols="30"
                               rows="10" required></textarea>
+                @if ($errors->has('description'))
+                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="opened_at">Open at</label>
                 <input style="width: 180px" type="text" class="form-control" name="opened_at" id="opened_at" required>
+                @if ($errors->has('opened_at'))
+                    <span class="text-danger">{{ $errors->first('opened_at') }}</span>
+                @endif
             </div>
 
             <div class="form-group">
                 <label for="closed_at">Close at</label>
                 <input style="width: 180px" type="text" class="form-control" name="closed_at" id="closed_at" required>
+                @if ($errors->has('closed_at'))
+                    <span class="text-danger">{{ $errors->first('closed_at') }}</span>
+                @endif
             </div>
 
 
