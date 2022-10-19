@@ -8,7 +8,7 @@
             <h6 class="collapse-header">Posts</h6>
             <a class="collapse-item" href="{{route('post.create')}}">Create a post</a>
             <a class="collapse-item" href="{{route('post.index')}}">View all posts</a>
-            <a class="collapse-item" href="{{route('post.history')}}">View action history</a>
+            <a class="collapse-item active" href="{{route('post.history')}}">View action history</a>
         </div>
     </div>
 </li>

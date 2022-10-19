@@ -1,14 +1,5 @@
 <x-admin-active-view-post-master>
     @section('content')
-
-
-
-
-
-
-
-
-
         <h1>View All Posts</h1>
         @if(session('message'))
             <div class="alert alert-danger"> {{session('message')}} </div>

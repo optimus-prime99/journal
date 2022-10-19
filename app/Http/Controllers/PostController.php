@@ -7,6 +7,7 @@ use App\Events\NewPost;
 use App\Events\UpdatePost;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
+use App\Models\ActionLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,6 +41,15 @@ class PostController extends Controller
 
         return view('admin.posts.index', ['posts' => $posts]);
     }
+
+
+    public function history()
+    {
+        $logs = ActionLog::all();
+
+        return view('admin.posts.history', ['logs' => $logs]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
