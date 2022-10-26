@@ -147,6 +147,7 @@ class PostRepository implements PostRepositoryInterface
         $post->update([
             'name' => $data['name'],
             'description' => $data['description'],
+            'opened_at' => $data['opened_at'],
             'closed_at' => $data['closed_at']
         ]);
         Session::flash('post-updated-message', 'Post with name '.$post['name'].' was updated');
@@ -154,14 +155,30 @@ class PostRepository implements PostRepositoryInterface
     }
     public function delete($id)
     {
+        dd($id);
         // TODO: Implement delete() method.
         $post = Post::find($id);
         if (!$post) {
             abort(404);
         }
-        $post->delete();
+//        dd($post->status);
+//        $post->delete();
+        $post->status = 0;
+        $post->update();
         Session::flash('message', 'Post was deleted');
         return back();
     }
+
+//    public function delete(int $id)
+//    {
+//        // TODO: Implement delete() method.
+//        $post = Post::find($id);
+//        if (!$post) {
+//            abort(404);
+//        }
+//        $post->delete();
+//        Session::flash('message', 'Post was deleted');
+//        return back();
+//    }
 
 }

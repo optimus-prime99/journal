@@ -13,7 +13,7 @@
                        name="name"
                        class="form-control" id="name"
                        aria-describedby=""
-                       placeholder="Enter name"
+                       placeholder="{{$post->name}}"
                        value="{{$post->name}}" required>
             </div>
             <div class="form-group">

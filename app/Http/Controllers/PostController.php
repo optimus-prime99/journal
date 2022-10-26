@@ -79,29 +79,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-//        $inputs = request()->validate([
-//            $request['name'] => 'required|min:4|max:255',
-//            $request['description'] => 'required',
-//            $request['closed_at'] => 'required'
-//        ]);
-//        dd($request);
-
-//        $inputs = Validator::make($request->all(), [
-//            $request['name'] => 'required|min:4|max:255',
-//            $request['description'] => 'required',
-//            $request['closed_at'] => 'required',
-//            $request['closed_at'] => 'required'
-//        ]);
-//        $request->validate([
-//            $request['name'] => 'required|min:4|max:255',
-//            $request['description'] => 'required',
-//            $request['closed_at'] => 'required',
-//            $request['closed_at'] => 'required'
-//        ]);
-//        $inputs = $request->all();
-//        dd($inputs);
-//        dd($inputs->data);
-//        dd($request['name']);
         $inputs = request()->validate([
             'name' => 'required|min:8|max:255',
             'description' => 'required',
@@ -212,8 +189,20 @@ class PostController extends Controller
 
     public function destroy($id)
     {
+        dd($id);
         $this->post->delete($id);
+
         event(new DeletePost($id));
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
+
+//    public function destroy(Request $request, $id)
+//    {
+////        dd($request);
+//
+//        $post = $this->post->update($request->all(), $id);
+//
+//        event(new DeletePost($id));
+//        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
+//    }
 }

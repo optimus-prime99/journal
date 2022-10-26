@@ -47,6 +47,7 @@
                         </tfoot>
                         <tbody>
                         @foreach($posts as $post)
+                            @if($post->status == 1)
                             <tr>
                                 <td>{{$post->id}}</td>
                                 <td>{{$post->user->name}}</td>
@@ -66,36 +67,42 @@
                                 <td>
                                     <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger deletePostBtn" >Delete</button>
+{{--                                        @method('DELETE')--}}
+                                        @method('PUT')
+                                        <p>{{$post->id}}</p>
+{{--                                        <button type="submit" class="btn btn-danger deletePostBtn" >Delete</button>--}}
+                                        <button type="submit" class="btn btn-danger" >Delete</button>
                                     </form>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete post</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="id" id="post_id">
-                                                        <h5>Are you sure you want to delete this post</h5>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger">Yes, Delete!</button>
-                                                    </div>
+{{--                                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+{{--                                        <div class="modal-dialog">--}}
+{{--                                            <div class="modal-content">--}}
+{{--                                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST">--}}
+{{--                                                    @csrf--}}
+{{--                                                    @method('DELETE')--}}
+{{--                                                    <div class="modal-header">--}}
+{{--                                                        <h5 class="modal-title" id="exampleModalLabel">Delete post</h5>--}}
+{{--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="modal-body">--}}
+{{--                                                        <input type="hidden" name="id" id="post_id">--}}
+{{--                                                        <h5>Are you sure you want to delete this post</h5>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="modal-footer">--}}
+{{--                                                        <button type="submit" class="btn btn-danger">Yes, Delete!</button>--}}
+{{--                                                        <input class="btn btn-primary" type="button" onclick="window.location.replace('{{route('post.index')}}')" value="Cancel" />--}}
+{{--                                                    </div>--}}
 
-                                                </form>
+{{--                                                </form>--}}
 
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </td>
                             </tr>
+
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

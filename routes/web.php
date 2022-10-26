@@ -53,4 +53,5 @@ Route::middleware('auth')->group(function(){
 //    Route::patch('/admin/posts/{post}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
     Route::put('/admin/posts/{post}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
     Route::delete('/admin/posts/{post}/delete', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete');
+//    Route::put('/admin/posts/{post}/delete', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete');
 });
