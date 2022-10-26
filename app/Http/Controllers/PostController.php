@@ -189,7 +189,6 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        dd($id);
         $this->post->delete($id);
 
         event(new DeletePost($id));

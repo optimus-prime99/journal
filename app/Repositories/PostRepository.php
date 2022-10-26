@@ -155,30 +155,17 @@ class PostRepository implements PostRepositoryInterface
     }
     public function delete($id)
     {
-        dd($id);
         // TODO: Implement delete() method.
         $post = Post::find($id);
         if (!$post) {
             abort(404);
         }
-//        dd($post->status);
-//        $post->delete();
         $post->status = 0;
         $post->update();
         Session::flash('message', 'Post was deleted');
         return back();
     }
 
-//    public function delete(int $id)
-//    {
-//        // TODO: Implement delete() method.
-//        $post = Post::find($id);
-//        if (!$post) {
-//            abort(404);
-//        }
-//        $post->delete();
-//        Session::flash('message', 'Post was deleted');
-//        return back();
-//    }
+
 
 }
