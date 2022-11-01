@@ -35,18 +35,37 @@ class WriteLogAfterUpdatePost
 //        return true;
 //    }
 
-    public function handle(UpdatePost $event)
+//    public function handle(UpdatePost $event)
+//    {
+//        $clientIP = request()->ip();
+////        $data = (string) $event->post;
+////        dd($data);
+////        dd($event);
+//        $action = ActionLog::create([
+//            'action' => 'Update post',
+//            'post_id' => $event->post->id,
+//            'post_data' => (string)$event->post,
+//            'user_ip' => $clientIP,
+//        ]);
+//
+//        return true;
+//    }
+
+
+
+
+    public function handle(UpdatePost $post)
     {
         $clientIP = request()->ip();
 //        $data = (string) $event->post;
 //        dd($data);
+//        dd($event);
         $action = ActionLog::create([
             'action' => 'Update post',
-            'post_id' => $event->post->id,
-            'post_data' => (string) $event->post,
+            'post_id' => $post->post->id,
+            'post_data' => (string)$post->post,
             'user_ip' => $clientIP,
         ]);
-
 
         return true;
     }

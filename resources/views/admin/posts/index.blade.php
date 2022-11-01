@@ -69,7 +69,6 @@
                                         @csrf
 {{--                                        @method('DELETE')--}}
                                         @method('PUT')
-                                        <p>{{$post->id}}</p>
 {{--                                        <button type="submit" class="btn btn-danger deletePostBtn" >Delete</button>--}}
                                         <button type="submit" class="btn btn-danger"
                                                 onclick="return confirm('{{ __('Are you sure you want to delete?') }}')" >

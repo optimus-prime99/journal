@@ -159,7 +159,8 @@ class PostController extends Controller
 
         $post = $this->post->update($request->all(), $id);
 //        dd($post);
-//        event(new UpdatePost($post));
+        event(new UpdatePost($post));
+
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 

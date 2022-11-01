@@ -24,6 +24,7 @@ class UpdatePost
     public function __construct($post)
     {
         //
+//        dd($post);
         $this->post = $post;
     }
 
