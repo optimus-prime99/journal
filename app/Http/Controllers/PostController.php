@@ -6,6 +6,7 @@ use App\Events\DeletePost;
 use App\Events\NewPost;
 use App\Events\UpdatePost;
 use App\Interfaces\PostRepositoryInterface;
+use App\Jobs\SaveActLogs;
 use App\Models\Post;
 use App\Models\ActionLog;
 use Illuminate\Http\Request;
@@ -98,7 +99,9 @@ class PostController extends Controller
 //            dd($post);
 
         session()->flash('post-created-message', 'Post with name ' . $request->get('name') . ' was created');
-        event(new NewPost($post));
+//        event(new NewPost($post));
+            SaveActLogs::dispatch($post);
+//            dd($post);
         }
         return redirect()->route('post.index');
     }
@@ -205,4 +208,8 @@ class PostController extends Controller
 //        event(new DeletePost($id));
 //        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
 //    }
+    public function storeActLog() {
+        SaveActLogs::dispatch();
+    }
+
 }

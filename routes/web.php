@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/admin/posts/history', [App\Http\Controllers\PostController::class, 'history'])->name('post.history');
 
+    Route::get('/admin/posts/action_logs', [App\Http\Controllers\PostController::class, 'storeActLog'])->name('post.storeActLog');
+
     Route::post('/admin/posts', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     Route::get('/admin/posts/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
 //    Route::patch('/admin/posts/{post}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
