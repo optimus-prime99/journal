@@ -6,7 +6,9 @@ use App\Events\DeletePost;
 use App\Events\NewPost;
 use App\Events\UpdatePost;
 use App\Interfaces\PostRepositoryInterface;
-use App\Jobs\SaveActLogs;
+use App\Jobs\SaveCreatePostLogs;
+use App\Jobs\SaveDeletePostLogs;
+use App\Jobs\SaveUpdatePostLogs;
 use App\Models\Post;
 use App\Models\ActionLog;
 use Illuminate\Http\Request;
@@ -100,8 +102,9 @@ class PostController extends Controller
 
         session()->flash('post-created-message', 'Post with name ' . $request->get('name') . ' was created');
 //        event(new NewPost($post));
-            SaveActLogs::dispatch($post);
 //            dd($post);
+            $this->dispatch(new SaveCreatePostLogs($post));
+
         }
         return redirect()->route('post.index');
     }
@@ -145,7 +148,7 @@ class PostController extends Controller
 //        $this->authorize('view', $post);
 
         $post = $this->post->edit($id);
-        event(new UpdatePost($post));
+
         return view('admin.posts.edit', ['post' => $post]);
     }
 
@@ -162,8 +165,8 @@ class PostController extends Controller
 
         $post = $this->post->update($request->all(), $id);
 //        dd($post);
-        event(new UpdatePost($post));
-
+//        event(new UpdatePost($post));
+        $this->dispatch(new SaveUpdatePostLogs($post));
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 
@@ -195,7 +198,8 @@ class PostController extends Controller
     {
         $this->post->delete($id);
 
-        event(new DeletePost($id));
+//        event(new DeletePost($id));
+        $this->dispatch(new SaveDeletePostLogs($id));
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
 
@@ -208,8 +212,8 @@ class PostController extends Controller
 //        event(new DeletePost($id));
 //        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
 //    }
-    public function storeActLog() {
-        SaveActLogs::dispatch();
-    }
+//    public function storeActLog() {
+//        SaveCreatePostLogs::dispatch();
+//    }
 
 }

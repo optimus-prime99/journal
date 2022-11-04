@@ -2,9 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Events\NewPost;
 use App\Models\ActionLog;
-use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,20 +10,19 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SaveActLogs implements ShouldQueue
+class SaveDeletePostLogs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    public $post;
+    public $id;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($post)
+    public function __construct($id)
     {
         //
-        $this->post = $post;
-        dd($post);
+        $this->id = $id;
     }
 
     /**
@@ -33,18 +30,18 @@ class SaveActLogs implements ShouldQueue
      *
      * @return void
      */
-    public function handle($post)
+    public function handle()
     {
-        dd($post);
-//        $clientIP = request()->ip();
-//        $data = (string) $event->post;
-//        dd($data);
-//        $action = ActionLog::create([
-//            'action' => 'Create post',
-//            'post_id' => $post->post->id,
-//            'post_data' => (string) $post->post,
-//            'user_ip' => $clientIP,
-//        ]);
+//        dd($post);
+        $id = $this->id;
+        $clientIP = request()->ip();
+//        $data = (string) $post->post;
+        $action = ActionLog::create([
+            'action' => 'Delete post',
+            'post_id' => $id,
+            'post_data' => null,
+            'user_ip' => $clientIP,
+        ]);
 
 
         return true;
